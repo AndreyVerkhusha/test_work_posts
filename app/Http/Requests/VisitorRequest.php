@@ -4,13 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VisitorRequest extends FormRequest
-{
+class VisitorRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
+    public function authorize(): bool {
         return true;
     }
 
@@ -19,11 +17,10 @@ class VisitorRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
-    {
+    public function rules(): array {
         return [
-            "visitor_id" => "required|uuid",
-            "post_id" => "required|exists:posts,id",
+            'visitor_id' => 'required|uuid',
+            'post_id'    => 'required|exists:posts,id',
         ];
     }
 }

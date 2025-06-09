@@ -11,12 +11,12 @@ class VisitorService {
     public function markViewed(VisitorRequest $request) {
         try {
             $visitorId = $request->input('visitor_id');
-            $postId = $request->input('post_id');
+            $postId    = $request->input('post_id');
 
-            $visitor = Visitor::firstOrCreate(['id' => $visitorId]);
+            $visitor       = Visitor::firstOrCreate(['id' => $visitorId]);
             $alreadyViewed = $visitor->posts()->where('post_id', $postId)->exists();
 
-            if (!$alreadyViewed) {
+            if (! $alreadyViewed) {
                 $visitor->posts()->attach($postId);
                 Post::where('id', $postId)->increment('views_count');
             }

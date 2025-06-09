@@ -11,12 +11,12 @@ class PostService {
     public function index(Request $request) {
         $visitorId = $request->header('Visitor-Id');
 
-        if (!$visitorId) {
+        if (! $visitorId) {
             return response()->json(['message' => 'Visitor ID header missing'], 400);
         }
 
         $viewedPostIds = DB::table('post_visitor')
-            ->where("visitor_id", $visitorId)
+            ->where('visitor_id', $visitorId)
             ->pluck('post_id');
 
         $posts = Post::whereNotIn('id', $viewedPostIds)
