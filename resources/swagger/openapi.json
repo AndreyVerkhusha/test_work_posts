@@ -1,0 +1,139 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Posts API",
+        "version": "1.0.0",
+        "description": "API posts"
+    },
+    "paths": {
+        "/posts": {
+            "get": {
+                "summary": "Получить список постов",
+                "parameters": [
+                    {
+                        "name": "Visitor-Id",
+                        "in": "header",
+                        "description": "UUID посетителя",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "example": "123e4567-e89b-12d3-a456-426614174000"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Post"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/viewed": {
+            "post": {
+                "summary": "Отметить пост как просмотренный",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "visitor_id": {
+                                        "type": "string",
+                                        "format": "uuid",
+                                        "example": "123e4567-e89b-12d3-a456-426614174000"
+                                    },
+                                    "post_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "View marked successfully"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Visitor": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "example": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:00:00Z"
+                    }
+                }
+            },
+            "Post": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "My first post"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "This is the content of the post."
+                    },
+                    "hotness": {
+                        "type": "integer",
+                        "example": 42
+                    },
+                    "views_count": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:00:00Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:00:00Z"
+                    },
+                    "deleted_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true,
+                        "example": null
+                    }
+                }
+            }
+        }
+    }
+}
